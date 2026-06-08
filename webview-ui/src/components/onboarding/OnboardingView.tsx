@@ -125,7 +125,7 @@ const ModelSelection = ({
 			{/* SEARCH MODEL */}
 			<div className="flex w-full max-w-lg flex-col gap-6 my-4 border-t border-muted-foreground">
 				<div className="flex flex-col gap-3 mt-6" key="search-results">
-					<h4 className="text-sm font-bold text-foreground/70 uppercase mb-2">other options</h4>
+					<h4 className="text-sm font-bold text-foreground/70 uppercase mb-2">другие варианты</h4>
 					<Input
 						autoFocus={false}
 						className="focus-visible:border-button-background"
@@ -136,7 +136,7 @@ const ModelSelection = ({
 							setSearchTerm(e.target.value)
 						}}
 						onClick={() => onSelectModel("")}
-						placeholder="Search model..."
+						placeholder="Поиск модели..."
 						type="search"
 						value={searchTerm}
 					/>
@@ -178,7 +178,7 @@ const ModelSelection = ({
 								return <ModelItem id={id} isSelected={isSelected} key={id} model={onboardingModel} />
 							})}
 						{searchTerm.length > 0 && searchedModels.length === 0 && (
-							<p className="px-1 mt-1 text-sm text-foreground/70">No result found for "{searchTerm}"</p>
+							<p className="px-1 mt-1 text-sm text-foreground/70">Ничего не найдено по запросу "{searchTerm}"</p>
 						)}
 					</div>
 				</div>
@@ -411,7 +411,7 @@ const OnboardingViewContent = ({ onboardingModels }: { onboardingModels: Onboard
 
 					{stepNumber !== 2 && (
 						<div className="items-center justify-center flex text-sm text-foreground gap-2 mb-3 text-pretty">
-							<AlertCircleIcon className="shrink-0 size-2" /> You can change this later in settings
+							<AlertCircleIcon className="shrink-0 size-2" /> Вы сможете изменить это позже в настройках
 						</div>
 					)}
 				</footer>
