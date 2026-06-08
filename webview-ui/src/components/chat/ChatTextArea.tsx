@@ -1649,8 +1649,8 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 												position: "absolute",
 												bottom: "calc(100% + 5px)",
 												left: 0,
-												width: "220px",
-												maxHeight: "250px",
+												width: "280px",
+												maxHeight: "350px",
 												overflowY: "auto",
 												backgroundColor: "var(--vscode-dropdown-background)",
 												border: "1px solid var(--vscode-editorGroup-border)",
@@ -1666,14 +1666,82 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 													flexDirection: "column",
 												}}
 											>
+												{/* Quick model ID input for current provider */}
+												{(() => {
+													const { selectedProvider, selectedModelId } = normalizeApiConfiguration(apiConfiguration, mode)
+													const providerLabel = providerOptions.find(p => p.value === selectedProvider)?.label || selectedProvider
+													return (
+														<div style={{ padding: "6px 10px 8px" }} onClick={(e) => e.stopPropagation()}>
+															<div style={{ fontSize: "10px", color: "var(--vscode-descriptionForeground)", marginBottom: "4px", textTransform: "uppercase", fontWeight: 600 }}>
+																Модель ({providerLabel})
+															</div>
+															<input
+																type="text"
+																defaultValue={selectedModelId || ""}
+																placeholder="Введите ID модели..."
+																style={{
+																	width: "100%",
+																	padding: "4px 6px",
+																	fontSize: "11px",
+																	backgroundColor: "var(--vscode-input-background)",
+																	color: "var(--vscode-input-foreground)",
+																	border: "1px solid var(--vscode-input-border, var(--vscode-editorGroup-border))",
+																	borderRadius: "2px",
+																	outline: "none",
+																	boxSizing: "border-box",
+																}}
+																onKeyDown={(e) => {
+																	if (e.key === "Enter") {
+																		const val = (e.target as HTMLInputElement).value.trim()
+																		if (val) {
+																			// Determine which model ID field to update based on the current provider
+																			const modelFieldMap: Record<string, { plan: string; act: string } | undefined> = {
+																				"openai": { plan: "planModeOpenAiModelId", act: "actModeOpenAiModelId" },
+																				"9router": { plan: "planModeNineRouterModelId", act: "actModeNineRouterModelId" },
+																				"openrouter": { plan: "planModeOpenRouterModelId", act: "actModeOpenRouterModelId" },
+																				"cline": { plan: "planModeClineModelId", act: "actModeClineModelId" },
+																				"ollama": { plan: "planModeOllamaModelId", act: "actModeOllamaModelId" },
+																				"lmstudio": { plan: "planModeLmStudioModelId", act: "actModeLmStudioModelId" },
+																				"litellm": { plan: "planModeLiteLlmModelId", act: "actModeLiteLlmModelId" },
+																				"requesty": { plan: "planModeRequestyModelId", act: "actModeRequestyModelId" },
+																				"together": { plan: "planModeTogetherModelId", act: "actModeTogetherModelId" },
+																				"groq": { plan: "planModeGroqModelId", act: "actModeGroqModelId" },
+																				"huggingface": { plan: "planModeHuggingFaceModelId", act: "actModeHuggingFaceModelId" },
+																				"fireworks": { plan: "planModeFireworksModelId", act: "actModeFireworksModelId" },
+																				"vercel-ai-gateway": { plan: "planModeVercelAiGatewayModelId", act: "actModeVercelAiGatewayModelId" },
+																				"hicap": { plan: "planModeHicapModelId", act: "actModeHicapModelId" },
+																			}
+																			const modelField = modelFieldMap[selectedProvider]
+																			if (modelField) {
+																				handleModeFieldChange(modelField as any, val, mode)
+																			} else {
+																				// For providers with static model lists, use the generic model ID field
+																				handleModeFieldChange({ plan: "planModeApiModelId", act: "actModeApiModelId" }, val, mode)
+																			}
+																			setShowProviderDropdown(false)
+																		}
+																	} else if (e.key === "Escape") {
+																		setShowProviderDropdown(false)
+																	}
+																}}
+															/>
+															<div style={{ fontSize: "9px", color: "var(--vscode-descriptionForeground)", marginTop: "3px", opacity: 0.8 }}>
+																Нажмите Enter для применения
+															</div>
+														</div>
+													)
+												})()}
+												<div style={{ height: "1px", backgroundColor: "var(--vscode-editorGroup-border)", margin: "2px 0" }} />
 												{providerOptions.map((provider) => {
-													const { selectedProvider } = normalizeApiConfiguration(apiConfiguration, mode)
+													const { selectedProvider, selectedModelId: currentModelId } = normalizeApiConfiguration(apiConfiguration, mode)
 													const isSelected = provider.value === selectedProvider
+													// Get what model ID would be for this provider if it were selected
+													const providerModelId = provider.value === selectedProvider ? currentModelId : undefined
 													return (
 														<div
 															key={provider.value}
 															style={{
-																padding: "6px 10px",
+																padding: "5px 10px",
 																cursor: "pointer",
 																fontSize: "11px",
 																display: "flex",
@@ -1694,8 +1762,19 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 																)
 															}}
 														>
-															<span>{provider.label}</span>
-															{isSelected && <span className="codicon codicon-check" style={{ fontSize: "10px" }} />}
+															<div style={{ display: "flex", flexDirection: "column", minWidth: 0, flex: 1 }}>
+																<span style={{ fontWeight: isSelected ? 600 : 400 }}>{provider.label}</span>
+																{isSelected && providerModelId && (
+																	<span style={{
+																		fontSize: "9px",
+																		opacity: 0.7,
+																		overflow: "hidden",
+																		textOverflow: "ellipsis",
+																		whiteSpace: "nowrap",
+																	}}>{providerModelId}</span>
+																)}
+															</div>
+															{isSelected && <span className="codicon codicon-check" style={{ fontSize: "10px", flexShrink: 0 }} />}
 														</div>
 													)
 												})}
