@@ -120,12 +120,8 @@ export abstract class WebviewProvider {
 				<title>Cline</title>
 			</head>
 			<body>
-				<div id="test" style="position:fixed;top:0;left:0;right:0;background:lime;color:black;padding:20px;z-index:99999;font-size:30px;font-weight:bold;text-align:center;">Waiting...</div>
 				<noscript>You need to enable JavaScript to run this app.</noscript>
 				<div id="root"></div>
-				<script nonce="${nonce}">
-					document.getElementById('test').innerText = 'JS WORKS';
-				</script>
 				<script type="module" nonce="${nonce}" src="${scriptUrl}"></script>
 			</body>
 		</html>
