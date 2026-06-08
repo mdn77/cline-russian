@@ -30,14 +30,20 @@ export const NineRouterProvider = ({ showModelOptions, isPopup, currentMode }: N
 
 	const currentBaseUrl = apiConfiguration?.nineRouterBaseUrl || "http://localhost:20128/v1"
 	
+	// Track if user explicitly selected custom mode
+	const [isCustomMode, setIsCustomMode] = useState(() => {
+		return !PRESETS.some(p => p.value !== "custom" && p.value === currentBaseUrl)
+	})
+
 	// Determine dropdown selection
 	const presetSelection = useMemo(() => {
-		const found = PRESETS.find(p => p.value === currentBaseUrl)
+		if (isCustomMode) return "custom"
+		const found = PRESETS.find(p => p.value !== "custom" && p.value === currentBaseUrl)
 		return found ? found.value : "custom"
-	}, [currentBaseUrl])
+	}, [currentBaseUrl, isCustomMode])
 
 	const [customUrl, setCustomUrl] = useState(() => {
-		const found = PRESETS.find(p => p.value === currentBaseUrl)
+		const found = PRESETS.find(p => p.value !== "custom" && p.value === currentBaseUrl)
 		return found ? "" : currentBaseUrl
 	})
 
@@ -49,8 +55,10 @@ export const NineRouterProvider = ({ showModelOptions, isPopup, currentMode }: N
 	const handlePresetChange = (e: any) => {
 		const val = e.target.value
 		if (val === "custom") {
-			handleFieldChange("nineRouterBaseUrl", customUrl || "http://localhost:20128/v1")
+			setIsCustomMode(true)
+			// Don't change the URL yet - let the user type it in
 		} else {
+			setIsCustomMode(false)
 			handleFieldChange("nineRouterBaseUrl", val)
 			// Auto-suggest default model for the selected preset
 			const preset = PRESETS.find(p => p.value === val)
