@@ -154,7 +154,7 @@ function createHandlerForProvider(
 			return new OpenAiHandler({
 				onRetryAttempt: options.onRetryAttempt,
 				openAiApiKey: options.nineRouterApiKey,
-				openAiBaseUrl: options.nineRouterBaseUrl || "https://routerai.ru/api/v1",
+				openAiBaseUrl: options.nineRouterBaseUrl || "http://localhost:20128/v1",
 				openAiModelId: mode === "plan" ? options.planModeNineRouterModelId : options.actModeNineRouterModelId,
 				openAiModelInfo: mode === "plan" ? options.planModeNineRouterModelInfo : options.actModeNineRouterModelInfo,
 				reasoningEffort: mode === "plan" ? options.planModeReasoningEffort : options.actModeReasoningEffort,

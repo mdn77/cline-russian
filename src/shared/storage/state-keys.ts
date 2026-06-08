@@ -141,7 +141,7 @@ const API_HANDLER_SETTINGS_FIELDS = {
 	ocaMode: { default: "internal" as string },
 	aihubmixBaseUrl: { default: undefined as string | undefined },
 	aihubmixAppCode: { default: undefined as string | undefined },
-	nineRouterBaseUrl: { default: "https://routerai.ru/api/v1" as string },
+	nineRouterBaseUrl: { default: "http://localhost:20128/v1" as string },
 	enableParallelToolCalling: { default: true as boolean },
 
 	// Plan mode configurations
@@ -185,7 +185,7 @@ const API_HANDLER_SETTINGS_FIELDS = {
 	planModeHicapModelId: { default: undefined as string | undefined },
 	planModeHicapModelInfo: { default: undefined as ModelInfo | undefined },
 	planModeNousResearchModelId: { default: undefined as string | undefined },
-	planModeNineRouterModelId: { default: "deepseek/deepseek-v4-flash" as string },
+	planModeNineRouterModelId: { default: "free-mix" as string },
 	planModeNineRouterModelInfo: { default: undefined as ModelInfo | undefined },
 	planModeVercelAiGatewayModelId: { default: undefined as string | undefined },
 	planModeVercelAiGatewayModelInfo: { default: undefined as ModelInfo | undefined },
@@ -231,7 +231,7 @@ const API_HANDLER_SETTINGS_FIELDS = {
 	actModeHicapModelId: { default: undefined as string | undefined },
 	actModeHicapModelInfo: { default: undefined as ModelInfo | undefined },
 	actModeNousResearchModelId: { default: undefined as string | undefined },
-	actModeNineRouterModelId: { default: "deepseek/deepseek-v4-flash" as string },
+	actModeNineRouterModelId: { default: "free-mix" as string },
 	actModeNineRouterModelInfo: { default: undefined as ModelInfo | undefined },
 	actModeVercelAiGatewayModelId: { default: undefined as string | undefined },
 	actModeVercelAiGatewayModelInfo: { default: undefined as ModelInfo | undefined },

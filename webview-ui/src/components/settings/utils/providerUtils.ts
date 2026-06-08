@@ -311,7 +311,7 @@ export function normalizeApiConfiguration(
 				currentMode === "plan" ? apiConfiguration?.planModeNineRouterModelInfo : apiConfiguration?.actModeNineRouterModelInfo
 			return {
 				selectedProvider: provider,
-				selectedModelId: nineRouterModelId || "deepseek/deepseek-v4-flash",
+				selectedModelId: nineRouterModelId || "free-mix",
 				selectedModelInfo: nineRouterModelInfo || openAiModelInfoSaneDefaults,
 			}
 		case "hicap":

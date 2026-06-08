@@ -18,9 +18,9 @@ interface NineRouterProviderProps {
 }
 
 const PRESETS = [
-	{ value: "https://routerai.ru/api/v1", label: "RouterAI Cloud (https://routerai.ru/api/v1)" },
-	{ value: "http://localhost:20128/v1", label: "Local Server (http://localhost:20128/v1)" },
-	{ value: "custom", label: "Пользовательский URL..." },
+	{ value: "http://localhost:20128/v1", label: "9router Local (http://localhost:20128/v1)", defaultModel: "free-mix" },
+	{ value: "https://routerai.ru/api/v1", label: "RouterAI Cloud (https://routerai.ru/api/v1)", defaultModel: "deepseek/deepseek-v4-flash" },
+	{ value: "custom", label: "Пользовательский URL...", defaultModel: "free-mix" },
 ]
 
 export const NineRouterProvider = ({ showModelOptions, isPopup, currentMode }: NineRouterProviderProps) => {
@@ -28,7 +28,7 @@ export const NineRouterProvider = ({ showModelOptions, isPopup, currentMode }: N
 	const { handleFieldChange, handleModeFieldChange } = useApiConfigurationHandlers()
 	const [modelConfigurationSelected, setModelConfigurationSelected] = useState(false)
 
-	const currentBaseUrl = apiConfiguration?.nineRouterBaseUrl || "https://routerai.ru/api/v1"
+	const currentBaseUrl = apiConfiguration?.nineRouterBaseUrl || "http://localhost:20128/v1"
 	
 	// Determine dropdown selection
 	const presetSelection = useMemo(() => {
@@ -43,15 +43,24 @@ export const NineRouterProvider = ({ showModelOptions, isPopup, currentMode }: N
 
 	// Get mode-specific fields
 	const modeFields = getModeSpecificFields(apiConfiguration, currentMode)
-	const selectedModelId = modeFields.nineRouterModelId || "deepseek/deepseek-v4-flash"
+	const selectedModelId = modeFields.nineRouterModelId || "free-mix"
 	const nineRouterModelInfo = modeFields.nineRouterModelInfo || { ...openAiModelInfoSaneDefaults }
 
 	const handlePresetChange = (e: any) => {
 		const val = e.target.value
 		if (val === "custom") {
-			handleFieldChange("nineRouterBaseUrl", customUrl || "https://routerai.ru/api/v1")
+			handleFieldChange("nineRouterBaseUrl", customUrl || "http://localhost:20128/v1")
 		} else {
 			handleFieldChange("nineRouterBaseUrl", val)
+			// Auto-suggest default model for the selected preset
+			const preset = PRESETS.find(p => p.value === val)
+			if (preset && preset.defaultModel) {
+				handleModeFieldChange(
+					{ plan: "planModeNineRouterModelId", act: "actModeNineRouterModelId" },
+					preset.defaultModel,
+					currentMode,
+				)
+			}
 		}
 	}
 
@@ -97,11 +106,11 @@ export const NineRouterProvider = ({ showModelOptions, isPopup, currentMode }: N
 					onChange={(value) =>
 						handleModeFieldChange(
 							{ plan: "planModeNineRouterModelId", act: "actModeNineRouterModelId" },
-							value || "deepseek/deepseek-v4-flash",
+							value || "free-mix",
 							currentMode,
 						)
 					}
-					placeholder="deepseek/deepseek-v4-flash"
+					placeholder="free-mix"
 					style={{ width: "100%", marginBottom: 10 }}>
 					<span style={{ fontWeight: 500 }}>ID модели (Model ID)</span>
 				</DebouncedTextField>
