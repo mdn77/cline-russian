@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+webview-ui/node_modules/
+
+# Build outputs
+dist/
+dist-standalone/
+webview-ui/build/
+out/
+
+# Testing caches & results
+.vscode-test/
+.nyc_output/
+coverage/
+tests-results/
+.playwright-targets/
+
+# IDE configs
+.idea/
+.vscode/
+
+# Environment / Secrets
+.env
+.env*.local
+
+# VS Code packaged extension
+*.vsix
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary build artifacts & helper scripts
+tmp-protoc/
+tmp_fix_db.js
+
