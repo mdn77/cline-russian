@@ -59,6 +59,7 @@ export enum ApiProvider {
 	NOUSRESEARCH = 39,
 	OPENAI_CODEX = 40,
 	WANDB = 41,
+	NINE_ROUTER = 42,
 	UNRECOGNIZED = -1,
 }
 
@@ -190,6 +191,9 @@ export function apiProviderFromJSON(object: any): ApiProvider {
 		case 41:
 		case "WANDB":
 			return ApiProvider.WANDB;
+		case 42:
+		case "NINE_ROUTER":
+			return ApiProvider.NINE_ROUTER;
 		case -1:
 		case "UNRECOGNIZED":
 		default:
@@ -283,6 +287,8 @@ export function apiProviderToJSON(object: ApiProvider): string {
 			return "OPENAI_CODEX";
 		case ApiProvider.WANDB:
 			return "WANDB";
+		case ApiProvider.NINE_ROUTER:
+			return "NINE_ROUTER";
 		case ApiProvider.UNRECOGNIZED:
 		default:
 			return "UNRECOGNIZED";
@@ -585,6 +591,8 @@ export interface ModelsApiOptions {
 	planModeAihubmixModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	planModeClineModelId?: string | undefined;
 	planModeClineModelInfo?: OpenRouterModelInfo | undefined;
+	planModeNineRouterModelId?: string | undefined;
+	planModeNineRouterModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	/** Act mode configurations */
 	actModeApiProvider?: ApiProvider | undefined;
 	actModeApiModelId?: string | undefined;
@@ -623,6 +631,8 @@ export interface ModelsApiOptions {
 	actModeAihubmixModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	actModeClineModelId?: string | undefined;
 	actModeClineModelInfo?: OpenRouterModelInfo | undefined;
+	actModeNineRouterModelId?: string | undefined;
+	actModeNineRouterModelInfo?: OpenAiCompatibleModelInfo | undefined;
 }
 
 export interface ModelsApiOptions_OpenAiHeadersEntry {
@@ -902,6 +912,8 @@ export interface ModelsApiConfiguration {
 	geminiPlanModeThinkingLevel?: string | undefined;
 	planModeClineModelId?: string | undefined;
 	planModeClineModelInfo?: OpenRouterModelInfo | undefined;
+	planModeNineRouterModelId?: string | undefined;
+	planModeNineRouterModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	/** Act mode configurations */
 	actModeApiProvider?: ApiProvider | undefined;
 	actModeApiModelId?: string | undefined;
@@ -945,6 +957,8 @@ export interface ModelsApiConfiguration {
 	geminiActModeThinkingLevel?: string | undefined;
 	actModeClineModelId?: string | undefined;
 	actModeClineModelInfo?: OpenRouterModelInfo | undefined;
+	actModeNineRouterModelId?: string | undefined;
+	actModeNineRouterModelInfo?: OpenAiCompatibleModelInfo | undefined;
 }
 
 export interface ModelsApiConfiguration_OpenAiHeadersEntry {

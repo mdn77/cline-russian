@@ -328,6 +328,8 @@ function convertApiProviderToProto(provider: string | undefined): ProtoApiProvid
 			return ProtoApiProvider.NOUSRESEARCH
 		case "openai-codex":
 			return ProtoApiProvider.OPENAI_CODEX
+		case "9router":
+			return ProtoApiProvider.NINE_ROUTER
 		default:
 			return ProtoApiProvider.ANTHROPIC
 	}
@@ -420,6 +422,8 @@ export function convertProtoToApiProvider(provider: ProtoApiProvider): ApiProvid
 			return "nousResearch"
 		case ProtoApiProvider.OPENAI_CODEX:
 			return "openai-codex"
+		case ProtoApiProvider.NINE_ROUTER:
+			return "9router"
 		default:
 			return "anthropic"
 	}
@@ -558,6 +562,8 @@ export function convertApiConfigurationToProto(config: ApiConfiguration): ProtoA
 		planModeNousResearchModelId: config.planModeNousResearchModelId,
 		planModeVercelAiGatewayModelId: config.planModeVercelAiGatewayModelId,
 		planModeVercelAiGatewayModelInfo: convertModelInfoToProtoOpenRouter(config.planModeVercelAiGatewayModelInfo),
+		planModeNineRouterModelId: config.planModeNineRouterModelId,
+		planModeNineRouterModelInfo: convertOpenAiCompatibleModelInfoToProto(config.planModeNineRouterModelInfo),
 
 		// Act mode configurations
 		actModeApiProvider: config.actModeApiProvider ? convertApiProviderToProto(config.actModeApiProvider) : undefined,
@@ -602,6 +608,8 @@ export function convertApiConfigurationToProto(config: ApiConfiguration): ProtoA
 		actModeNousResearchModelId: config.actModeNousResearchModelId,
 		actModeVercelAiGatewayModelId: config.actModeVercelAiGatewayModelId,
 		actModeVercelAiGatewayModelInfo: convertModelInfoToProtoOpenRouter(config.actModeVercelAiGatewayModelInfo),
+		actModeNineRouterModelId: config.actModeNineRouterModelId,
+		actModeNineRouterModelInfo: convertOpenAiCompatibleModelInfoToProto(config.actModeNineRouterModelInfo),
 	}
 }
 
@@ -741,6 +749,8 @@ export function convertProtoToApiConfiguration(protoConfig: ProtoApiConfiguratio
 		planModeNousResearchModelId: protoConfig.planModeNousResearchModelId,
 		planModeVercelAiGatewayModelId: protoConfig.planModeVercelAiGatewayModelId,
 		planModeVercelAiGatewayModelInfo: convertProtoToModelInfo(protoConfig.planModeVercelAiGatewayModelInfo),
+		planModeNineRouterModelId: protoConfig.planModeNineRouterModelId,
+		planModeNineRouterModelInfo: convertProtoToOpenAiCompatibleModelInfo(protoConfig.planModeNineRouterModelInfo),
 
 		// Act mode configurations
 		actModeApiProvider:
@@ -786,5 +796,7 @@ export function convertProtoToApiConfiguration(protoConfig: ProtoApiConfiguratio
 		actModeNousResearchModelId: protoConfig.actModeNousResearchModelId,
 		actModeVercelAiGatewayModelId: protoConfig.actModeVercelAiGatewayModelId,
 		actModeVercelAiGatewayModelInfo: convertProtoToModelInfo(protoConfig.actModeVercelAiGatewayModelInfo),
+		actModeNineRouterModelId: protoConfig.actModeNineRouterModelId,
+		actModeNineRouterModelInfo: convertProtoToOpenAiCompatibleModelInfo(protoConfig.actModeNineRouterModelInfo),
 	}
 }
