@@ -133,14 +133,14 @@ async function performTaskHistoryReconstruction(): Promise<TaskReconstructionRes
 
 async function backupExistingTaskHistory(): Promise<void> {
 	try {
-		const existingHistory = await readTaskHistoryFromState()
-		if (existingHistory.length > 0) {
-			const backupPath = path.join(HostProvider.get().globalStorageFsPath, "state", `taskHistory.backup.${Date.now()}.json`)
+		const stateDir = path.join(HostProvider.get().globalStorageFsPath, "state")
+		const historyPath = path.join(stateDir, "taskHistory.json")
 
-			// Ensure state directory exists
-			const fs = await import("fs/promises")
-			await fs.mkdir(path.dirname(backupPath), { recursive: true })
-			await fs.writeFile(backupPath, JSON.stringify(existingHistory, null, 2))
+		const fs = await import("fs/promises")
+		if (await fileExistsAtPath(historyPath)) {
+			const backupPath = path.join(stateDir, `taskHistory.backup.${Date.now()}.json`)
+			await fs.mkdir(stateDir, { recursive: true })
+			await fs.copyFile(historyPath, backupPath)
 		}
 	} catch (error) {
 		// Non-fatal error, just log it
