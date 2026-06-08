@@ -32,12 +32,12 @@ const ConnectionStatusIndicator = ({
 			{isChecking ? (
 				<>
 					<Spinner />
-					<StatusText>Checking connection...</StatusText>
+					<StatusText>Проверка подключения...</StatusText>
 				</>
 			) : isConnected === true ? (
 				<>
 					<CheckIcon className="codicon codicon-check" />
-					<StatusText style={{ color: "var(--vscode-terminal-ansiGreen)" }}>Connected</StatusText>
+					<StatusText style={{ color: "var(--vscode-terminal-ansiGreen)" }}>Подключено</StatusText>
 				</>
 			) : isConnected === false ? (
 				<StatusText style={{ color: "var(--vscode-errorForeground)" }}>Не подключено</StatusText>
@@ -167,7 +167,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 							onChange={(e) =>
 								updateSetting("browserSettings", { disableToolUse: (e.target as HTMLInputElement).checked })
 							}>
-							Disable browser tool usage
+							Отключить использование браузера
 						</VSCodeCheckbox>
 						<p
 							style={{
@@ -175,7 +175,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 								color: "var(--vscode-descriptionForeground)",
 								margin: "4px 0 0 0px",
 							}}>
-							Prevent Cline from using browser actions (e.g. launch, click, type).
+							Запретить Cline использовать действия браузера (например, запуск, клик, ввод).
 						</p>
 					</div>
 
@@ -208,7 +208,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 									color: "var(--vscode-descriptionForeground)",
 									margin: 0,
 								}}>
-								Set the size of the browser viewport for screenshots and interactions.
+								Укажите размер окна браузера для скриншотов и взаимодействий.
 							</p>
 						</div>
 
@@ -232,7 +232,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 											updateSetting("browserSettings", { remoteBrowserHost: undefined })
 										}
 									}}>
-									Use remote browser connection
+									Использовать удаленное подключение к браузеру
 								</VSCodeCheckbox>
 								<ConnectionStatusIndicator
 									isChecking={isCheckingConnection}
@@ -246,19 +246,19 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 									color: "var(--vscode-descriptionForeground)",
 									margin: "0 0 6px 0px",
 								}}>
-								Enable Cline to use your Chrome
+								Разрешить Cline использовать ваш Chrome
 								{isBundled
-									? "(not detected on your machine)"
+									? "(не обнаружен на вашем компьютере)"
 									: detectedChromePath
 										? ` (${detectedChromePath})`
 										: ""}
-								. You can specify a custom path below. Using a remote browser connection requires starting Chrome
-								in debug mode
+								. Вы можете указать собственный путь ниже. Использование удаленного подключения к браузеру требует запуска Chrome
+								в режиме отладки
 								{browserSettings.remoteBrowserEnabled ? (
 									<>
 										{" "}
-										manually (<code>--remote-debugging-port=9222</code>) or using the button below. Enter the
-										host address or leave it blank for automatic discovery.
+										вручную (<code>--remote-debugging-port=9222</code>) или с помощью кнопки ниже. Введите адрес
+										хоста или оставьте поле пустым для автоматического обнаружения.
 									</>
 								) : (
 									"."
@@ -282,7 +282,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 												disabled={debugMode}
 												onClick={relaunchChromeDebugMode}
 												style={{ flex: 1 }}>
-												{debugMode ? "Launching Browser..." : "Launch Browser with Debug Mode"}
+												{debugMode ? "Запуск браузера..." : "Запустить браузер в режиме отладки"}
 											</VSCodeButton>
 										</div>
 									)}
@@ -320,13 +320,13 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 								<label
 									htmlFor="chrome-executable-path"
 									style={{ fontWeight: "500", display: "block", marginBottom: 5 }}>
-									Chrome Executable Path (Optional)
+									Путь к исполняемому файлу Chrome (Необязательно)
 								</label>
 								<DebouncedTextField
 									id="chrome-executable-path"
 									initialValue={browserSettings.chromeExecutablePath || ""}
 									onChange={(value) => updateSetting("browserSettings", { chromeExecutablePath: value })}
-									placeholder="e.g., /usr/bin/google-chrome or C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+									placeholder="например, /usr/bin/google-chrome или C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 									style={{ width: "100%" }}
 								/>
 								<p
@@ -335,7 +335,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 										color: "var(--vscode-descriptionForeground)",
 										margin: "4px 0 0 0",
 									}}>
-									Leave blank to auto-detect.
+									Оставьте пустым для автообнаружения.
 								</p>
 							</div>
 							{/* Custom Browser Arguments section */}
@@ -343,13 +343,13 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 								<label
 									htmlFor="custom-browser-args"
 									style={{ fontWeight: "500", display: "block", marginBottom: 5 }}>
-									Custom Browser Arguments (Optional)
+									Пользовательские аргументы браузера (Необязательно)
 								</label>
 								<DebouncedTextField
 									id="custom-browser-args"
 									initialValue={browserSettings.customArgs || ""}
 									onChange={(value) => updateSetting("browserSettings", { customArgs: value })}
-									placeholder="e.g., --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu --no-first-run --no-zygote"
+									placeholder="например, --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage"
 									style={{ width: "100%" }}
 								/>
 								<p
@@ -358,7 +358,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 										color: "var(--vscode-descriptionForeground)",
 										margin: "4px 0 0 0",
 									}}>
-									Space-separated arguments to pass to the browser executable.
+									Аргументы через пробел для передачи исполняемому файлу браузера.
 								</p>
 							</div>
 						</div>

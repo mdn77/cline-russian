@@ -79,7 +79,7 @@ function toFeaturedModelCardEntry(
 
 	return {
 		id: model.id,
-		description: model.description || (fallbackLabel === "FREE" ? "Free model" : "Recommended model"),
+		description: model.description || (fallbackLabel === "FREE" ? "Бесплатная модель" : "Рекомендуемая модель"),
 		label: normalizedLabel || fallbackLabel,
 	}
 }
@@ -398,10 +398,10 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 					{/* Tabs */}
 					<TabsContainer style={{ marginTop: 4 }}>
 						<Tab active={activeTab === "recommended"} onClick={() => setActiveTab("recommended")}>
-							Recommended
+							Рекомендуемые
 						</Tab>
 						<Tab active={activeTab === "free"} onClick={() => setActiveTab("free")}>
-							Free
+							Бесплатные
 						</Tab>
 					</TabsContainer>
 
@@ -452,7 +452,7 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 							setIsDropdownVisible(true)
 						}}
 						onKeyDown={handleKeyDown}
-						placeholder="Search and select a model..."
+						placeholder="Поиск и выбор модели..."
 						role="combobox"
 						style={{
 							width: "100%",
@@ -573,10 +573,10 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 							defaultEffort={showAdaptiveThinkingEffort ? adaptiveThinkingDefaultEffort : "medium"}
 							description={
 								showAdaptiveThinkingEffort
-									? "Use None to disable adaptive thinking. Higher effort increases response detail and token usage."
+									? "Используйте None для отключения адаптивного мышления. Более высокий уровень улучшает детализацию ответов, но расходует больше токенов."
 									: undefined
 							}
-							label={showAdaptiveThinkingEffort ? "Adaptive Thinking" : undefined}
+							label={showAdaptiveThinkingEffort ? "Адаптивное мышление (Adaptive Thinking)" : undefined}
 						/>
 					)}
 
@@ -596,8 +596,7 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 						marginTop: 0,
 						color: "var(--vscode-descriptionForeground)",
 					}}>
-					The extension automatically fetches the latest Cline model list. If you're unsure which model to choose, Cline
-					works best with <strong>anthropic/claude-sonnet-4.5</strong>.
+					Расширение автоматически получает актуальный список моделей Cline. Если вы не уверены, какую модель выбрать, Cline лучше всего работает с <strong>anthropic/claude-sonnet-4.5</strong>.
 				</p>
 			)}
 		</div>

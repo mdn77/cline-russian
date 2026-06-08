@@ -35,43 +35,43 @@ interface FeatureToggle {
 const agentFeatures: FeatureToggle[] = [
 	{
 		id: "subagents",
-		label: "Subagents",
-		description: "Let Cline run focused subagents in parallel to explore the codebase for you.",
+		label: "Субагенты (Subagents)",
+		description: "Позволить Cline параллельно запускать специализированных субагентов для изучения кода.",
 		stateKey: "subagentsEnabled",
 		settingKey: "subagentsEnabled",
 	},
 	{
 		id: "native-tool-call",
-		label: "Native Tool Call",
-		description: "Use native function calling when available",
+		label: "Нативный вызов инструментов",
+		description: "Использовать нативный вызов функций (Function Calling), если доступно",
 		stateKey: "nativeToolCallSetting",
 		settingKey: "nativeToolCallEnabled",
 	},
 	{
 		id: "parallel-tool-calling",
-		label: "Parallel Tool Calling",
-		description: "Execute multiple tool calls simultaneously",
+		label: "Параллельный вызов инструментов",
+		description: "Выполнять несколько вызовов инструментов одновременно",
 		stateKey: "enableParallelToolCalling",
 		settingKey: "enableParallelToolCalling",
 	},
 	{
 		id: "strict-plan-mode",
-		label: "Strict Plan Mode",
-		description: "Prevents file edits while in Plan mode",
+		label: "Строгий режим планирования",
+		description: "Запретить изменение файлов во время планирования (Plan)",
 		stateKey: "strictPlanModeEnabled",
 		settingKey: "strictPlanModeEnabled",
 	},
 	{
 		id: "auto-compact",
-		label: "Auto Compact",
-		description: "Automatically compress conversation history.",
+		label: "Автосжатие истории",
+		description: "Автоматически сжимать историю диалога при достижении лимитов.",
 		stateKey: "useAutoCondense",
 		settingKey: "useAutoCondense",
 	},
 	{
 		id: "focus-chain",
-		label: "Focus Chain",
-		description: "Maintain context focus across interactions",
+		label: "Цепочка фокуса (Focus Chain)",
+		description: "Сохранять контекстный фокус между итерациями чата",
 		stateKey: "focusChainEnabled",
 		settingKey: "focusChainSettings",
 		nestedKey: "enabled",
@@ -81,36 +81,36 @@ const agentFeatures: FeatureToggle[] = [
 const editorFeatures: FeatureToggle[] = [
 	{
 		id: "show-feature-tips",
-		label: "Feature Tips",
-		description: "Show rotating tips during the thinking phase to help you discover Cline features.",
+		label: "Подсказки по функциям",
+		description: "Показывать советы во время размышлений, чтобы познакомить вас с возможностями Cline.",
 		stateKey: "showFeatureTips",
 		settingKey: "showFeatureTips",
 	},
 	{
 		id: "background-edit",
-		label: "Background Edit",
-		description: "Allow edits without stealing editor focus",
+		label: "Фоновое редактирование",
+		description: "Разрешить редактирование файлов без перехвата фокуса редактора VS Code",
 		stateKey: "backgroundEditEnabled",
 		settingKey: "backgroundEditEnabled",
 	},
 	{
 		id: "checkpoints",
-		label: "Checkpoints",
-		description: "Save progress at key points for easy rollback",
+		label: "Контрольные точки (Checkpoints)",
+		description: "Сохранять прогресс в ключевых точках для быстрого отката изменений",
 		stateKey: "enableCheckpointsSetting",
 		settingKey: "enableCheckpointsSetting",
 	},
 	{
 		id: "cline-web-tools",
-		label: "Cline Web Tools",
-		description: "Access web browsing and search capabilities",
+		label: "Веб-инструменты Cline",
+		description: "Доступ к браузеру и функциям поиска в Интернете",
 		stateKey: "clineWebToolsEnabled",
 		settingKey: "clineWebToolsEnabled",
 	},
 	{
 		id: "worktrees",
-		label: "Worktrees",
-		description: "Enables git worktree management for running parallel Cline tasks.",
+		label: "Рабочие деревья Git (Worktrees)",
+		description: "Включить управление git worktree для параллельного запуска нескольких задач.",
 		stateKey: "worktreesEnabled",
 		settingKey: "worktreesEnabled",
 	},
@@ -119,24 +119,24 @@ const editorFeatures: FeatureToggle[] = [
 const experimentalFeatures: FeatureToggle[] = [
 	{
 		id: "yolo",
-		label: "Yolo Mode",
+		label: "Режим Yolo (Yolo Mode)",
 		description:
-			"Execute tasks without user's confirmation. Auto-switches from Plan to Act mode and disables the ask question tool. Use with extreme caution.",
+			"Выполнять задачи без подтверждения пользователя. Автоматически переключает режимы и отключает инструмент диалога. Используйте с крайней осторожностью!",
 		stateKey: "yoloModeToggled",
 		settingKey: "yoloModeToggled",
 	},
 	{
 		id: "double-check-completion",
-		label: "Double-Check Completion",
+		label: "Двойная проверка выполнения",
 		description:
-			"Rejects the first completion attempt and asks the model to re-verify its work against the original task requirements before accepting.",
+			"Отклонять первую попытку завершения задачи и заставлять модель перепроверить свою работу на соответствие исходным требованиям.",
 		stateKey: "doubleCheckCompletionEnabled",
 		settingKey: "doubleCheckCompletionEnabled",
 	},
 	{
 		id: "lazy-teammate",
-		label: "Lazy Teammate Mode",
-		description: "Sometimes Cline just isn't feeling it today. For entertainment purposes only.",
+		label: "Режим ленивого напарника",
+		description: "Иногда у Cline просто нет настроения работать сегодня. Исключительно для развлечения.",
 		stateKey: "lazyTeammateModeEnabled",
 		settingKey: "lazyTeammateModeEnabled",
 	},
@@ -145,8 +145,8 @@ const experimentalFeatures: FeatureToggle[] = [
 const advancedFeatures: FeatureToggle[] = [
 	{
 		id: "hooks",
-		label: "Hooks",
-		description: "Enable lifecycle and tool hooks during task execution.",
+		label: "Хуки жизненного цикла (Hooks)",
+		description: "Включить выполнение хуков жизненного цикла и хуков инструментов при запуске задач.",
 		stateKey: "hooksEnabled",
 		settingKey: "hooksEnabled",
 	},
@@ -287,7 +287,7 @@ const FeatureSettingsSection = ({ renderSectionHeader }: FeatureSettingsSectionP
 				<div className="mb-5 flex flex-col gap-3">
 					{/* Core features */}
 					<div>
-						<div className="text-xs font-medium text-foreground/80 uppercase tracking-wider mb-3">Agent</div>
+						<div className="text-xs font-medium text-foreground/80 uppercase tracking-wider mb-3">Агент (Agent)</div>
 						<div
 							className="relative p-3 pt-0 my-3 rounded-md border border-editor-widget-border/50"
 							id="agent-features">
@@ -323,7 +323,7 @@ const FeatureSettingsSection = ({ renderSectionHeader }: FeatureSettingsSectionP
 
 					{/* Editor features */}
 					<div>
-						<div className="text-xs font-medium text-foreground/80 uppercase tracking-wider mb-3">Editor</div>
+						<div className="text-xs font-medium text-foreground/80 uppercase tracking-wider mb-3">Редактор (Editor)</div>
 						<div
 							className="relative p-3 pt-0 my-3 rounded-md border border-editor-widget-border/50"
 							id="optional-features">
@@ -342,7 +342,7 @@ const FeatureSettingsSection = ({ renderSectionHeader }: FeatureSettingsSectionP
 
 					{/* Experimental features */}
 					<div>
-						<div className="text-xs font-medium uppercase tracking-wider mb-3 text-warning/80">Experimental</div>
+						<div className="text-xs font-medium uppercase tracking-wider mb-3 text-warning/80">Экспериментальные (Experimental)</div>
 						<div
 							className="relative p-3 pt-0 my-3 rounded-md border border-editor-widget-border/50 w-full"
 							id="experimental-features">
@@ -365,7 +365,7 @@ const FeatureSettingsSection = ({ renderSectionHeader }: FeatureSettingsSectionP
 
 				{/* Advanced */}
 				<div>
-					<div className="text-xs font-medium text-foreground/80 uppercase tracking-wider mb-3">Advanced</div>
+					<div className="text-xs font-medium text-foreground/80 uppercase tracking-wider mb-3">Дополнительные (Advanced)</div>
 					<div className="relative p-3 my-3 rounded-md border border-editor-widget-border/50" id="advanced-features">
 						<div className="space-y-3">
 							{advancedFeatures.map((feature) => (
@@ -381,15 +381,15 @@ const FeatureSettingsSection = ({ renderSectionHeader }: FeatureSettingsSectionP
 
 							{/* MCP Display Mode */}
 							<div className="space-y-2">
-								<Label className="text-sm font-medium text-foreground">MCP Display Mode</Label>
-								<p className="text-xs text-muted-foreground">Controls how MCP responses are displayed</p>
+								<Label className="text-sm font-medium text-foreground">Режим отображения MCP</Label>
+								<p className="text-xs text-muted-foreground">Определяет, как форматировать и показывать ответы серверов MCP</p>
 								<Select onValueChange={(v) => updateSetting("mcpDisplayMode", v)} value={mcpDisplayMode}>
 									<SelectTrigger className="w-full">
 										<SelectValue />
 									</SelectTrigger>
 									<SelectContent>
-										<SelectItem value="plain">Plain Text</SelectItem>
-										<SelectItem value="rich">Rich Display</SelectItem>
+										<SelectItem value="plain">Простой текст</SelectItem>
+										<SelectItem value="rich">Форматированный вид</SelectItem>
 										<SelectItem value="markdown">Markdown</SelectItem>
 									</SelectContent>
 								</Select>

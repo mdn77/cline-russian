@@ -17,6 +17,10 @@
 			"label": "OpenAI Compatible"
 		},
 		{
+			"value": "9router",
+			"label": "9router"
+		},
+		{
 			"value": "anthropic",
 			"label": "Anthropic"
 		},

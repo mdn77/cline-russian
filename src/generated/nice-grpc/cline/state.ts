@@ -256,6 +256,7 @@ export interface Secrets {
 	clineApiKey?: string | undefined;
 	openaiCodexOauthCredentials?: string | undefined;
 	wandbApiKey?: string | undefined;
+	nineRouterApiKey?: string | undefined;
 }
 
 /**
@@ -439,6 +440,11 @@ export interface Settings {
 	actModeClineModelInfo?: OpenRouterModelInfo | undefined;
 	showFeatureTips?: boolean | undefined;
 	lazyTeammateModeEnabled?: boolean | undefined;
+	nineRouterBaseUrl?: string | undefined;
+	planModeNineRouterModelId?: string | undefined;
+	planModeNineRouterModelInfo?: OpenRouterModelInfo | undefined;
+	actModeNineRouterModelId?: string | undefined;
+	actModeNineRouterModelInfo?: OpenRouterModelInfo | undefined;
 }
 
 export interface Settings_OpenAiHeadersEntry {
@@ -992,6 +998,7 @@ function createBaseSecrets(): Secrets {
 		clineApiKey: undefined,
 		openaiCodexOauthCredentials: undefined,
 		wandbApiKey: undefined,
+		nineRouterApiKey: undefined,
 	};
 }
 
@@ -1137,6 +1144,9 @@ export const Secrets: MessageFns<Secrets> = {
 		}
 		if (message.wandbApiKey !== undefined) {
 			writer.uint32(402).string(message.wandbApiKey);
+		}
+		if (message.nineRouterApiKey !== undefined) {
+			writer.uint32(410).string(message.nineRouterApiKey);
 		}
 		return writer;
 	},
@@ -1517,6 +1527,14 @@ export const Secrets: MessageFns<Secrets> = {
 					message.wandbApiKey = reader.string();
 					continue;
 				}
+				case 51: {
+					if (tag !== 410) {
+						break;
+					}
+
+					message.nineRouterApiKey = reader.string();
+					continue;
+				}
 			}
 			if ((tag & 7) === 4 || tag === 0) {
 				break;
@@ -1758,6 +1776,11 @@ export const Secrets: MessageFns<Secrets> = {
 				: isSet(object.wandb_api_key)
 					? globalThis.String(object.wandb_api_key)
 					: undefined,
+			nineRouterApiKey: isSet(object.nineRouterApiKey)
+				? globalThis.String(object.nineRouterApiKey)
+				: isSet(object.nine_router_api_key)
+					? globalThis.String(object.nine_router_api_key)
+					: undefined,
 		};
 	},
 
@@ -1901,6 +1924,9 @@ export const Secrets: MessageFns<Secrets> = {
 		if (message.wandbApiKey !== undefined) {
 			obj.wandbApiKey = message.wandbApiKey;
 		}
+		if (message.nineRouterApiKey !== undefined) {
+			obj.nineRouterApiKey = message.nineRouterApiKey;
+		}
 		return obj;
 	},
 
@@ -1956,6 +1982,7 @@ export const Secrets: MessageFns<Secrets> = {
 		message.openaiCodexOauthCredentials =
 			object.openaiCodexOauthCredentials ?? undefined;
 		message.wandbApiKey = object.wandbApiKey ?? undefined;
+		message.nineRouterApiKey = object.nineRouterApiKey ?? undefined;
 		return message;
 	},
 };
@@ -2137,6 +2164,11 @@ function createBaseSettings(): Settings {
 		actModeClineModelInfo: undefined,
 		showFeatureTips: undefined,
 		lazyTeammateModeEnabled: undefined,
+		nineRouterBaseUrl: undefined,
+		planModeNineRouterModelId: undefined,
+		planModeNineRouterModelInfo: undefined,
+		actModeNineRouterModelId: undefined,
+		actModeNineRouterModelInfo: undefined,
 	};
 }
 
@@ -2767,6 +2799,27 @@ export const Settings: MessageFns<Settings> = {
 		}
 		if (message.lazyTeammateModeEnabled !== undefined) {
 			writer.uint32(1464).bool(message.lazyTeammateModeEnabled);
+		}
+		if (message.nineRouterBaseUrl !== undefined) {
+			writer.uint32(1474).string(message.nineRouterBaseUrl);
+		}
+		if (message.planModeNineRouterModelId !== undefined) {
+			writer.uint32(1482).string(message.planModeNineRouterModelId);
+		}
+		if (message.planModeNineRouterModelInfo !== undefined) {
+			OpenRouterModelInfo.encode(
+				message.planModeNineRouterModelInfo,
+				writer.uint32(1490).fork(),
+			).join();
+		}
+		if (message.actModeNineRouterModelId !== undefined) {
+			writer.uint32(1498).string(message.actModeNineRouterModelId);
+		}
+		if (message.actModeNineRouterModelInfo !== undefined) {
+			OpenRouterModelInfo.encode(
+				message.actModeNineRouterModelInfo,
+				writer.uint32(1506).fork(),
+			).join();
 		}
 		return writer;
 	},
@@ -4274,6 +4327,52 @@ export const Settings: MessageFns<Settings> = {
 					message.lazyTeammateModeEnabled = reader.bool();
 					continue;
 				}
+				case 184: {
+					if (tag !== 1474) {
+						break;
+					}
+
+					message.nineRouterBaseUrl = reader.string();
+					continue;
+				}
+				case 185: {
+					if (tag !== 1482) {
+						break;
+					}
+
+					message.planModeNineRouterModelId = reader.string();
+					continue;
+				}
+				case 186: {
+					if (tag !== 1490) {
+						break;
+					}
+
+					message.planModeNineRouterModelInfo = OpenRouterModelInfo.decode(
+						reader,
+						reader.uint32(),
+					);
+					continue;
+				}
+				case 187: {
+					if (tag !== 1498) {
+						break;
+					}
+
+					message.actModeNineRouterModelId = reader.string();
+					continue;
+				}
+				case 188: {
+					if (tag !== 1506) {
+						break;
+					}
+
+					message.actModeNineRouterModelInfo = OpenRouterModelInfo.decode(
+						reader,
+						reader.uint32(),
+					);
+					continue;
+				}
 			}
 			if ((tag & 7) === 4 || tag === 0) {
 				break;
@@ -5233,6 +5332,33 @@ export const Settings: MessageFns<Settings> = {
 				: isSet(object.lazy_teammate_mode_enabled)
 					? globalThis.Boolean(object.lazy_teammate_mode_enabled)
 					: undefined,
+			nineRouterBaseUrl: isSet(object.nineRouterBaseUrl)
+				? globalThis.String(object.nineRouterBaseUrl)
+				: isSet(object.nine_router_base_url)
+					? globalThis.String(object.nine_router_base_url)
+					: undefined,
+			planModeNineRouterModelId: isSet(object.planModeNineRouterModelId)
+				? globalThis.String(object.planModeNineRouterModelId)
+				: isSet(object.plan_mode_nine_router_model_id)
+					? globalThis.String(object.plan_mode_nine_router_model_id)
+					: undefined,
+			planModeNineRouterModelInfo: isSet(object.planModeNineRouterModelInfo)
+				? OpenRouterModelInfo.fromJSON(object.planModeNineRouterModelInfo)
+				: isSet(object.plan_mode_nine_router_model_info)
+					? OpenRouterModelInfo.fromJSON(
+							object.plan_mode_nine_router_model_info,
+						)
+					: undefined,
+			actModeNineRouterModelId: isSet(object.actModeNineRouterModelId)
+				? globalThis.String(object.actModeNineRouterModelId)
+				: isSet(object.act_mode_nine_router_model_id)
+					? globalThis.String(object.act_mode_nine_router_model_id)
+					: undefined,
+			actModeNineRouterModelInfo: isSet(object.actModeNineRouterModelInfo)
+				? OpenRouterModelInfo.fromJSON(object.actModeNineRouterModelInfo)
+				: isSet(object.act_mode_nine_router_model_info)
+					? OpenRouterModelInfo.fromJSON(object.act_mode_nine_router_model_info)
+					: undefined,
 		};
 	},
 
@@ -5854,6 +5980,25 @@ export const Settings: MessageFns<Settings> = {
 		if (message.lazyTeammateModeEnabled !== undefined) {
 			obj.lazyTeammateModeEnabled = message.lazyTeammateModeEnabled;
 		}
+		if (message.nineRouterBaseUrl !== undefined) {
+			obj.nineRouterBaseUrl = message.nineRouterBaseUrl;
+		}
+		if (message.planModeNineRouterModelId !== undefined) {
+			obj.planModeNineRouterModelId = message.planModeNineRouterModelId;
+		}
+		if (message.planModeNineRouterModelInfo !== undefined) {
+			obj.planModeNineRouterModelInfo = OpenRouterModelInfo.toJSON(
+				message.planModeNineRouterModelInfo,
+			);
+		}
+		if (message.actModeNineRouterModelId !== undefined) {
+			obj.actModeNineRouterModelId = message.actModeNineRouterModelId;
+		}
+		if (message.actModeNineRouterModelInfo !== undefined) {
+			obj.actModeNineRouterModelInfo = OpenRouterModelInfo.toJSON(
+				message.actModeNineRouterModelInfo,
+			);
+		}
 		return obj;
 	},
 
@@ -6245,6 +6390,21 @@ export const Settings: MessageFns<Settings> = {
 		message.showFeatureTips = object.showFeatureTips ?? undefined;
 		message.lazyTeammateModeEnabled =
 			object.lazyTeammateModeEnabled ?? undefined;
+		message.nineRouterBaseUrl = object.nineRouterBaseUrl ?? undefined;
+		message.planModeNineRouterModelId =
+			object.planModeNineRouterModelId ?? undefined;
+		message.planModeNineRouterModelInfo =
+			object.planModeNineRouterModelInfo !== undefined &&
+			object.planModeNineRouterModelInfo !== null
+				? OpenRouterModelInfo.fromPartial(object.planModeNineRouterModelInfo)
+				: undefined;
+		message.actModeNineRouterModelId =
+			object.actModeNineRouterModelId ?? undefined;
+		message.actModeNineRouterModelInfo =
+			object.actModeNineRouterModelInfo !== undefined &&
+			object.actModeNineRouterModelInfo !== null
+				? OpenRouterModelInfo.fromPartial(object.actModeNineRouterModelInfo)
+				: undefined;
 		return message;
 	},
 };

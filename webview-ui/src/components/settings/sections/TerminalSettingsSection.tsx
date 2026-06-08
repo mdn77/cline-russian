@@ -93,7 +93,7 @@ export const TerminalSettingsSection: React.FC<TerminalSettingsSectionProps> = (
 				<div className="mb-5" id="terminal-settings-section">
 					<div className="mb-4">
 						<label className="font-medium block mb-1" htmlFor="default-terminal-profile">
-							Default Terminal Profile
+							Профиль терминала по умолчанию (Default Profile)
 						</label>
 						<VSCodeDropdown
 							className="w-full"
@@ -107,13 +107,13 @@ export const TerminalSettingsSection: React.FC<TerminalSettingsSectionProps> = (
 							))}
 						</VSCodeDropdown>
 						<p className="text-xs text-(--vscode-descriptionForeground) mt-1">
-							Select the default terminal Cline will use. 'Default' uses your VSCode global setting.
+							Выберите терминал по умолчанию, который будет использовать Cline. 'Default' использует глобальные настройки VS Code.
 						</p>
 					</div>
 
 					<div className="mb-4">
 						<div className="mb-2">
-							<label className="font-medium block mb-1">Shell integration timeout (seconds)</label>
+							<label className="font-medium block mb-1">Таймаут интеграции оболочки (в секундах)</label>
 							<div className="flex items-center">
 								<VSCodeTextField
 									className="w-full"
@@ -126,8 +126,7 @@ export const TerminalSettingsSection: React.FC<TerminalSettingsSectionProps> = (
 							{inputError && <div className="text-(--vscode-errorForeground) text-xs mt-1">{inputError}</div>}
 						</div>
 						<p className="text-xs text-(--vscode-descriptionForeground)">
-							Set how long Cline waits for shell integration to activate before executing commands. Increase this
-							value if you experience terminal connection timeouts.
+							Время ожидания активации интеграции оболочки (в секундах). Увеличьте это значение, если у вас зависают команды терминала на старте.
 						</p>
 					</div>
 
@@ -136,50 +135,49 @@ export const TerminalSettingsSection: React.FC<TerminalSettingsSectionProps> = (
 							<VSCodeCheckbox
 								checked={terminalReuseEnabled ?? true}
 								onChange={(event) => handleTerminalReuseChange(event as Event)}>
-								Enable aggressive terminal reuse
+								Агрессивное повторное использование терминала
 							</VSCodeCheckbox>
 						</div>
 						<p className="text-xs text-(--vscode-descriptionForeground)">
-							When enabled, Cline will reuse existing terminal windows that aren't in the current working directory.
-							Disable this if you experience issues with task lockout after a terminal command.
+							Если включено, Cline будет повторно использовать открытые терминалы, которые не находятся в текущей рабочей папке. Отключите, если задачи блокируются после выполнения команд.
 						</p>
 					</div>
 					{isVsCodePlatform && (
 						<div className="mb-4">
 							<label className="font-medium block mb-1" htmlFor="terminal-execution-mode">
-								Terminal Execution Mode
+								Режим выполнения терминала
 							</label>
 							<VSCodeDropdown
 								className="w-full"
 								id="terminal-execution-mode"
 								onChange={(event) => handleExecutionModeChange(event as Event)}
 								value={vscodeTerminalExecutionMode ?? "vscodeTerminal"}>
-								<VSCodeOption value="vscodeTerminal">VS Code Terminal</VSCodeOption>
-								<VSCodeOption value="backgroundExec">Background Exec</VSCodeOption>
+								<VSCodeOption value="vscodeTerminal">Терминал VS Code</VSCodeOption>
+								<VSCodeOption value="backgroundExec">Фоновый процесс (Background Exec)</VSCodeOption>
 							</VSCodeDropdown>
 							<p className="text-xs text-[var(--vscode-descriptionForeground)] mt-1">
-								Choose whether Cline runs commands in the VS Code terminal or a background process.
+								Выберите способ запуска команд: в активном терминале VS Code или в фоновом процессе.
 							</p>
 						</div>
 					)}
 					<TerminalOutputLineLimitSlider />
 					<div className="mt-5 p-3 bg-(--vscode-textBlockQuote-background) rounded border border-(--vscode-textBlockQuote-border)">
 						<p className="text-[13px] m-0">
-							<strong>Having terminal issues?</strong> Check our{" "}
+							<strong>Проблемы с терминалом?</strong> Обратитесь к разделу{" "}
 							<a
 								className="text-(--vscode-textLink-foreground) underline hover:no-underline"
 								href="https://docs.cline.bot/troubleshooting/terminal-quick-fixes"
 								rel="noopener noreferrer"
 								target="_blank">
-								Terminal Quick Fixes
+								Быстрые исправления терминала
 							</a>{" "}
-							or the{" "}
+							или{" "}
 							<a
 								className="text-(--vscode-textLink-foreground) underline hover:no-underline"
 								href="https://docs.cline.bot/troubleshooting/terminal-integration-guide"
 								rel="noopener noreferrer"
 								target="_blank">
-								Complete Troubleshooting Guide
+								Полному руководству по устранению неполадок
 							</a>
 							.
 						</p>

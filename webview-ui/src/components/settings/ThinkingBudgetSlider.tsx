@@ -137,11 +137,11 @@ const ThinkingBudgetSlider = ({ currentMode, maxBudget, showEnableToggle = true 
 		<div className="w-full">
 			{showEnableToggle ? (
 				<VSCodeCheckbox checked={isEnabled} onClick={handleToggleChange}>
-					Enable thinking{localValue && localValue > 0 ? ` (${localValue.toLocaleString()} tokens)` : ""}
+					Включить мышление (thinking){localValue && localValue > 0 ? ` (${localValue.toLocaleString()} токенов)` : ""}
 				</VSCodeCheckbox>
 			) : (
 				<p className="text-[var(--vscode-descriptionForeground)] text-sm">
-					Thinking is enabled by default for this model. ({localValue.toLocaleString()} tokens)
+					Мышление (thinking) включено для этой модели по умолчанию. ({localValue.toLocaleString()} токенов)
 				</p>
 			)}
 

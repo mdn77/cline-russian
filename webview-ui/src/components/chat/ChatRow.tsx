@@ -311,21 +311,22 @@ export const ChatRowContent = memo(
 		}, []) // Dependencies remain empty
 
 		const [icon, title] = useMemo(() => {
+
 			switch (type) {
 				case "error":
 					return [
 						<span className="codicon codicon-error text-error mb-[-1.5px]" />,
-						<span className="text-error font-bold">Error</span>,
+						<span className="text-error font-bold">Ошибка</span>,
 					]
 				case "mistake_limit_reached":
 					return [
 						<CircleXIcon className="text-error size-2" />,
-						<span className="text-error font-bold">Cline is having trouble...</span>,
+						<span className="text-error font-bold">У Cline возникли трудности...</span>,
 					]
 				case "command":
 					return [
 						<TerminalIcon className="text-foreground size-2" />,
-						<span className="font-bold text-foreground">Cline wants to execute this command:</span>,
+						<span className="font-bold text-foreground">Cline хочет выполнить эту команду:</span>,
 					]
 				case "use_mcp_server":
 					const mcpServerUse = JSON.parse(message.text || "{}") as ClineAskUseMcpServer
@@ -336,17 +337,17 @@ export const ChatRowContent = memo(
 							<span className="codicon codicon-server text-foreground mb-[-1.5px]" />
 						),
 						<span className="ph-no-capture font-bold text-foreground break-words">
-							Cline wants to {mcpServerUse.type === "use_mcp_tool" ? "use a tool" : "access a resource"} on the{" "}
+							Cline хочет {mcpServerUse.type === "use_mcp_tool" ? "использовать инструмент" : "получить доступ к ресурсу"} на MCP-сервере{" "}
 							<code className="break-all">
 								{getMcpServerDisplayName(mcpServerUse.serverName, mcpMarketplaceCatalog)}
 							</code>{" "}
-							MCP server:
+							:
 						</span>,
 					]
 				case "completion_result":
 					return [
 						<span className="codicon codicon-check text-success mb-[-1.5px]" />,
-						<span className="text-success font-bold">Task Completed</span>,
+						<span className="text-success font-bold">Задача завершена</span>,
 					]
 				case "api_req_started":
 					// API request rows no longer render the request payload/cost accordion.
@@ -355,7 +356,7 @@ export const ChatRowContent = memo(
 				case "followup":
 					return [
 						<span className="codicon codicon-question text-foreground mb-[-1.5px]" />,
-						<span className="font-bold text-foreground">Cline has a question:</span>,
+						<span className="font-bold text-foreground">Вопрос от Cline:</span>,
 					]
 				default:
 					return [null, null]
@@ -433,14 +434,14 @@ export const ChatRowContent = memo(
 					const content = tool?.content || ""
 					const isApplyingPatch = content?.startsWith("%%bash") && !content.endsWith("*** End Patch\nEOF")
 					const editToolTitle = isApplyingPatch
-						? "Cline is creating patches to edit this file:"
-						: "Cline wants to edit this file:"
+						? "Cline создает патчи для изменения этого файла:"
+						: "Cline хочет изменить этот файл:"
 					return (
 						<div>
 							<div className={HEADER_CLASSNAMES}>
 								<PencilIcon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "Этот файл находится за пределами вашей рабочей области")}
 								<span style={{ fontWeight: "bold" }}>{editToolTitle}</span>
 							</div>
 							{backgroundEditEnabled && tool.path && tool.content ? (
@@ -467,8 +468,8 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								<SquareMinusIcon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
-								<span style={{ fontWeight: "bold" }}>Cline wants to delete this file:</span>
+									toolIcon("sign-out", "yellow", -90, "Этот файл находится за пределами вашей рабочей области")}
+								<span style={{ fontWeight: "bold" }}>Cline хочет удалить этот файл:</span>
 							</div>
 							<CodeAccordian
 								// isLoading={message.partial}
@@ -485,8 +486,8 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								<FilePlus2Icon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
-								<span className="font-bold">Cline wants to create a new file:</span>
+									toolIcon("sign-out", "yellow", -90, "Этот файл находится за пределами вашей рабочей области")}
+								<span className="font-bold">Cline хочет создать новый файл:</span>
 							</div>
 							{backgroundEditEnabled && tool.path && tool.content ? (
 								<DiffEditRow patch={tool.content} path={tool.path} startLineNumbers={tool.startLineNumbers} />
@@ -508,8 +509,8 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{isImage ? <ImageUpIcon className="size-2" /> : <FileCode2Icon className="size-2" />}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
-								<span className="font-bold">Cline wants to read this file:</span>
+									toolIcon("sign-out", "yellow", -90, "Этот файл находится за пределами вашей рабочей области")}
+								<span className="font-bold">Cline хочет прочитать этот файл:</span>
 							</div>
 							<div className="bg-code rounded-sm overflow-hidden border border-editor-group-border">
 								<div
@@ -546,11 +547,11 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{toolIcon("folder-opened")}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "Это находится за пределами вашей рабочей области")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
-										? "Cline wants to view the top level files in this directory:"
-										: "Cline viewed the top level files in this directory:"}
+										? "Cline хочет просмотреть файлы верхнего уровня в этой директории:"
+										: "Cline просмотрел файлы верхнего уровня в этой директории:"}
 								</span>
 							</div>
 							<CodeAccordian
@@ -568,11 +569,11 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{toolIcon("folder-opened")}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "Это находится за пределами вашей рабочей области")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
-										? "Cline wants to recursively view all files in this directory:"
-										: "Cline recursively viewed all files in this directory:"}
+										? "Cline хочет рекурсивно просмотреть все файлы в этой директории:"
+										: "Cline рекурсивно просмотрел все файлы в этой директории:"}
 								</span>
 							</div>
 							<CodeAccordian
@@ -590,11 +591,11 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{toolIcon("file-code")}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "Этот файл находится за пределами вашей рабочей области")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
-										? "Cline wants to view source code definition names used in this directory:"
-										: "Cline viewed source code definition names used in this directory:"}
+										? "Cline хочет просмотреть имена определений исходного кода в этой директории:"
+										: "Cline просмотрел имена определений исходного кода в этой директории:"}
 								</span>
 							</div>
 							<CodeAccordian
@@ -611,9 +612,9 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{toolIcon("search")}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "Это находится за пределами вашей рабочей области")}
 								<span className="font-bold">
-									Cline wants to search this directory for <code className="break-all">{tool.regex}</code>:
+									Cline хочет выполнить поиск в этой директории по выражению <code className="break-all">{tool.regex}</code>:
 								</span>
 							</div>
 							<SearchResultsDisplay
@@ -630,7 +631,7 @@ export const ChatRowContent = memo(
 						<div>
 							<div className={HEADER_CLASSNAMES}>
 								<FoldVerticalIcon className="size-2" />
-								<span className="font-bold">Cline is condensing the conversation:</span>
+								<span className="font-bold">Cline сжимает контекст беседы:</span>
 							</div>
 							<div className="bg-code overflow-hidden border border-editor-group-border rounded-[3px]">
 								<div
@@ -648,7 +649,7 @@ export const ChatRowContent = memo(
 									{isExpanded ? (
 										<div>
 											<div className="flex items-center mb-2">
-												<span className="font-bold mr-1">Summary:</span>
+												<span className="font-bold mr-1">Сводка:</span>
 												<div className="grow" />
 												<ChevronDownIcon className="my-0.5 shrink-0 size-4" />
 											</div>
@@ -672,11 +673,11 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								<Link2Icon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This URL is external")}
+									toolIcon("sign-out", "yellow", -90, "Этот URL является внешним")}
 								<span className="font-bold">
 									{message.type === "ask"
-										? "Cline wants to fetch content from this URL:"
-										: "Cline fetched content from this URL:"}
+										? "Cline хочет загрузить содержимое по этому URL:"
+										: "Cline загрузил содержимое по этому URL:"}
 								</span>
 							</div>
 							<div
@@ -701,11 +702,11 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								<SearchIcon className="size-2 rotate-90" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This search is external")}
+									toolIcon("sign-out", "yellow", -90, "Этот поиск является внешним")}
 								<span className="font-bold">
 									{message.type === "ask"
-										? "Cline wants to search the web for:"
-										: "Cline searched the web for:"}
+										? "Cline хочет выполнить поиск в сети по запросу:"
+										: "Cline выполнил поиск в сети по запросу:"}
 								</span>
 							</div>
 							<div className="bg-code border border-editor-group-border overflow-hidden rounded-xs select-text py-[9px] px-2.5">
@@ -720,7 +721,7 @@ export const ChatRowContent = memo(
 						<div>
 							<div className={HEADER_CLASSNAMES}>
 								<LightbulbIcon className="size-2" />
-								<span className="font-bold">Cline loaded the skill:</span>
+								<span className="font-bold">Cline загрузил навык:</span>
 							</div>
 							<div className="bg-code border border-editor-group-border overflow-hidden rounded-xs py-[9px] px-2.5">
 								<span className="ph-no-capture font-medium">{tool.path}</span>

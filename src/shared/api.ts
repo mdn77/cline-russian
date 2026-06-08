@@ -44,6 +44,7 @@ export type ApiProvider =
 	| "hicap"
 	| "nousResearch"
 	| "wandb"
+	| "9router"
 
 export const DEFAULT_API_PROVIDER = "openrouter" as ApiProvider
 

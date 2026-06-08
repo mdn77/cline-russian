@@ -16,8 +16,8 @@ interface ReasoningEffortSelectorProps {
 
 const ReasoningEffortSelector = ({
 	currentMode,
-	label = "Reasoning Effort",
-	description = "Higher effort improves depth, but uses more tokens.",
+	label = "Уровень рассуждения (Reasoning Effort)",
+	description = "Более высокий уровень улучшает глубину ответов, но расходует больше токенов.",
 	allowedEfforts = OPENAI_REASONING_EFFORT_OPTIONS,
 	defaultEffort = "medium",
 }: ReasoningEffortSelectorProps) => {
@@ -41,11 +41,20 @@ const ReasoningEffortSelector = ({
 					<SelectValue />
 				</SelectTrigger>
 				<SelectContent>
-					{allowedEfforts.map((effort) => (
-						<SelectItem key={effort} value={effort}>
-							{effort.charAt(0).toUpperCase() + effort.slice(1)}
-						</SelectItem>
-					))}
+					{allowedEfforts.map((effort) => {
+						const effortLabels: Record<string, string> = {
+							none: "Отсутствует (none)",
+							low: "Низкий (low)",
+							medium: "Средний (medium)",
+							high: "Высокий (high)",
+							xhigh: "Максимальный (xhigh)"
+						};
+						return (
+							<SelectItem key={effort} value={effort}>
+								{effortLabels[effort] || (effort.charAt(0).toUpperCase() + effort.slice(1))}
+							</SelectItem>
+						)
+					})}
 				</SelectContent>
 			</Select>
 			<p

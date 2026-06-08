@@ -34,7 +34,7 @@ const ViewHeader = ({ title, onDone, showEnvironmentSuffix, environment }: ViewH
 				)}
 			</div>
 			<Button size="header" onClick={onDone}>
-				Done
+				Готово
 			</Button>
 		</div>
 	)

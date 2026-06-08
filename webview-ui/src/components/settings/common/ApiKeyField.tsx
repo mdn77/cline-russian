@@ -35,7 +35,7 @@ export const ApiKeyField = ({
 				style={{ width: "100%" }}
 				type="password"
 				value={localValue}>
-				<span style={{ fontWeight: 500 }}>{providerName} API Key</span>
+				<span style={{ fontWeight: 500 }}>API-ключ {providerName}</span>
 			</VSCodeTextField>
 			<p
 				style={{
@@ -43,7 +43,7 @@ export const ApiKeyField = ({
 					marginTop: 3,
 					color: "var(--vscode-descriptionForeground)",
 				}}>
-				{helpText || "This key is stored locally and only used to make API requests from this extension."}
+				{helpText || "Этот ключ хранится локально и используется только для отправки запросов расширения."}
 				{!localValue && signupUrl && (
 					<VSCodeLink
 						href={signupUrl}
@@ -51,7 +51,7 @@ export const ApiKeyField = ({
 							display: "inline",
 							fontSize: "inherit",
 						}}>
-						You can get a{/^[aeiou]/i.test(providerName) ? "n" : ""} {providerName} API key by signing up here.
+						Вы можете получить API-ключ {providerName}, зарегистрировавшись здесь.
 					</VSCodeLink>
 				)}
 			</p>

@@ -78,7 +78,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 				<TooltipTrigger>
 					<div className="mb-2.5">
 						<div className="flex items-center gap-2 mb-1">
-							<span style={{ fontWeight: 500 }}>Base URL</span>
+							<span style={{ fontWeight: 500 }}>Базовый URL (Base URL)</span>
 							{remoteConfigSettings?.openAiBaseUrl !== undefined && (
 								<i className="codicon codicon-lock text-description text-sm" />
 							)}
@@ -90,7 +90,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								handleFieldChange("openAiBaseUrl", value)
 								debouncedRefreshOpenAiModels(value, apiConfiguration?.openAiApiKey)
 							}}
-							placeholder={"Enter base URL..."}
+							placeholder={"Введите базовый URL..."}
 							style={{ width: "100%", marginBottom: 10 }}
 							type="text"
 						/>
@@ -115,9 +115,9 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 				onChange={(value) =>
 					handleModeFieldChange({ plan: "planModeOpenAiModelId", act: "actModeOpenAiModelId" }, value, currentMode)
 				}
-				placeholder={"Enter Model ID..."}
+				placeholder={"Введите ID модели..."}
 				style={{ width: "100%", marginBottom: 10 }}>
-				<span style={{ fontWeight: 500 }}>Model ID</span>
+				<span style={{ fontWeight: 500 }}>ID модели (Model ID)</span>
 			</DebouncedTextField>
 
 			{/* OpenAI Compatible Custom Headers */}
@@ -130,7 +130,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 							<Tooltip>
 								<TooltipTrigger>
 									<div className="flex items-center gap-2">
-										<span style={{ fontWeight: 500 }}>Custom Headers</span>
+										<span style={{ fontWeight: 500 }}>Пользовательские заголовки (Custom Headers)</span>
 										{remoteConfigSettings?.openAiHeaders !== undefined && (
 											<i className="codicon codicon-lock text-description text-sm" />
 										)}
@@ -149,7 +149,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 									currentHeaders[newKey] = ""
 									handleFieldChange("openAiHeaders", currentHeaders)
 								}}>
-								Add Header
+								Добавить заголовок
 							</VSCodeButton>
 						</div>
 
@@ -191,7 +191,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 											const { [key]: _, ...rest } = apiConfiguration?.openAiHeaders ?? {}
 											handleFieldChange("openAiHeaders", rest)
 										}}>
-										Remove
+										Удалить
 									</VSCodeButton>
 								</div>
 							))}
@@ -252,7 +252,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 						fontWeight: 700,
 						textTransform: "uppercase",
 					}}>
-					Model Configuration
+					Настройка модели (Model Configuration)
 				</span>
 			</div>
 
@@ -270,7 +270,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								currentMode,
 							)
 						}}>
-						Supports Images
+						Поддержка изображений (Supports Images)
 					</VSCodeCheckbox>
 
 					<VSCodeCheckbox
@@ -286,7 +286,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								currentMode,
 							)
 						}}>
-						Enable R1 messages format
+						Включить формат сообщений R1
 					</VSCodeCheckbox>
 
 					<div style={{ display: "flex", gap: 10, marginTop: "5px" }}>
@@ -306,7 +306,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Context Window Size</span>
+							<span style={{ fontWeight: 500 }}>Размер окна контекста (Context Window Size)</span>
 						</DebouncedTextField>
 
 						<DebouncedTextField
@@ -325,7 +325,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Max Output Tokens</span>
+							<span style={{ fontWeight: 500 }}>Макс. выходных токенов (Max Output Tokens)</span>
 						</DebouncedTextField>
 					</div>
 
@@ -346,7 +346,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Input Price / 1M tokens</span>
+							<span style={{ fontWeight: 500 }}>Цена за ввод / 1 млн токенов</span>
 						</DebouncedTextField>
 
 						<DebouncedTextField
@@ -365,7 +365,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Output Price / 1M tokens</span>
+							<span style={{ fontWeight: 500 }}>Цена за вывод / 1 млн токенов</span>
 						</DebouncedTextField>
 					</div>
 
@@ -385,7 +385,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 									currentMode,
 								)
 							}}>
-							<span style={{ fontWeight: 500 }}>Temperature</span>
+							<span style={{ fontWeight: 500 }}>Температура (Temperature)</span>
 						</DebouncedTextField>
 					</div>
 				</>
@@ -398,8 +398,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 					color: "var(--vscode-descriptionForeground)",
 				}}>
 				<span style={{ color: "var(--vscode-errorForeground)" }}>
-					(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude models.
-					Less capable models may not work as expected.)
+					(<span style={{ fontWeight: 500 }}>Примечание:</span> Cline использует сложные системные инструкции и лучше всего работает с моделями Claude. Менее мощные модели могут работать некорректно.)
 				</span>
 			</p>
 

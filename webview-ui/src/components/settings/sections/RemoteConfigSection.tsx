@@ -57,7 +57,7 @@ function RefreshButton() {
 			className={`w-full rounded-xs ${isLoading ? "animate-pulse" : ""}`}
 			disabled={isLoading || (retryIn !== null && retryIn > 0)}
 			onClick={() => onRefresh()}>
-			Refresh {retryIn && retryIn > 0 && <>(Retry in: {retryIn} seconds)</>}
+			Обновить {retryIn && retryIn > 0 && <>(Повторить через: {retryIn} сек.)</>}
 		</VSCodeButton>
 	)
 }
@@ -74,7 +74,7 @@ function SettingRow({ label, value, isSecret }: SettingRowProps) {
 			return <span className="text-description italic">Не настроено</span>
 		}
 		if (typeof value === "boolean") {
-			return value ? <span className="text-green-500">Enabled</span> : <span className="text-description">Disabled</span>
+			return value ? <span className="text-green-500">Включено</span> : <span className="text-description">Выключено</span>
 		}
 		if (isSecret && typeof value === "string" && value.length > 0) {
 			return <span className="font-mono text-xs">{"•".repeat(Math.min(value.length, 20))}</span>
@@ -125,9 +125,9 @@ function TestButton({ label, onClick, disabled, successMessage }: TestButtonProp
 		setResult(null)
 		try {
 			await onClick()
-			setResult({ success: true, message: successMessage || "Success!" })
+			setResult({ success: true, message: successMessage || "Успешно!" })
 		} catch (error) {
-			setResult({ success: false, message: error instanceof Error ? error.message : "Failed" })
+			setResult({ success: false, message: error instanceof Error ? error.message : "Ошибка" })
 		} finally {
 			setIsLoading(false)
 			timeoutRef.current = setTimeout(() => setResult(null), 5000)
@@ -190,7 +190,7 @@ function OtelSettingsSection() {
 				{remoteConfigSettings?.openTelemetryOtlpHeaders && (
 					<SettingRow
 						label="Заголовки OTLP"
-						value={`${Object.keys(remoteConfigSettings.openTelemetryOtlpHeaders).length} header(s)`}
+						value={`${Object.keys(remoteConfigSettings.openTelemetryOtlpHeaders).length} заголовок(ки)`}
 					/>
 				)}
 				{remoteConfigSettings?.openTelemetryMetricExportInterval && (
@@ -289,8 +289,8 @@ export function RemoteConfigSection({ renderSectionHeader }: RemoteConfigSection
 			<BaseRemoteConfigSection renderSectionHeader={renderSectionHeader}>
 				<div className="flex flex-col justify-center gap-4">
 					<h3>
-						You haven't configured remote config yet. Do so through our{" "}
-						<VSCodeLink href="https://app.cline.bot/dashboard/organization?tab=settings">dashboard</VSCodeLink>.
+						Вы ещё не настроили удаленную конфигурацию. Сделайте это в нашей{" "}
+						<VSCodeLink href="https://app.cline.bot/dashboard/organization?tab=settings">панели управления</VSCodeLink>.
 					</h3>
 
 					<RefreshButton />
@@ -303,7 +303,7 @@ export function RemoteConfigSection({ renderSectionHeader }: RemoteConfigSection
 		<BaseRemoteConfigSection renderSectionHeader={renderSectionHeader}>
 			<div className="flex flex-col gap-2">
 				<p className="text-description text-xs mb-2">
-					These settings are managed by your organization's remote configuration.
+					Эти настройки управляются удаленной конфигурацией вашей организации.
 				</p>
 
 				<OtelSettingsSection />

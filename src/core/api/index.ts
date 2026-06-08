@@ -150,6 +150,15 @@ function createHandlerForProvider(
 				openAiModelInfo: mode === "plan" ? options.planModeOpenAiModelInfo : options.actModeOpenAiModelInfo,
 				reasoningEffort: mode === "plan" ? options.planModeReasoningEffort : options.actModeReasoningEffort,
 			})
+		case "9router":
+			return new OpenAiHandler({
+				onRetryAttempt: options.onRetryAttempt,
+				openAiApiKey: options.nineRouterApiKey,
+				openAiBaseUrl: options.nineRouterBaseUrl || "https://routerai.ru/api/v1",
+				openAiModelId: mode === "plan" ? options.planModeNineRouterModelId : options.actModeNineRouterModelId,
+				openAiModelInfo: mode === "plan" ? options.planModeNineRouterModelInfo : options.actModeNineRouterModelInfo,
+				reasoningEffort: mode === "plan" ? options.planModeReasoningEffort : options.actModeReasoningEffort,
+			})
 		case "ollama":
 			return new OllamaHandler({
 				onRetryAttempt: options.onRetryAttempt,

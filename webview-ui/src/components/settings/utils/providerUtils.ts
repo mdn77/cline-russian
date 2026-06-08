@@ -150,6 +150,7 @@ export function getModelsForProvider(
 		case "openrouter":
 		case "cline":
 		case "openai":
+		case "9router":
 		case "ollama":
 		case "lmstudio":
 		case "vscode-lm":
@@ -302,6 +303,16 @@ export function normalizeApiConfiguration(
 				selectedProvider: provider,
 				selectedModelId: openAiModelId || "",
 				selectedModelInfo: openAiModelInfo || openAiModelInfoSaneDefaults,
+			}
+		case "9router":
+			const nineRouterModelId =
+				currentMode === "plan" ? apiConfiguration?.planModeNineRouterModelId : apiConfiguration?.actModeNineRouterModelId
+			const nineRouterModelInfo =
+				currentMode === "plan" ? apiConfiguration?.planModeNineRouterModelInfo : apiConfiguration?.actModeNineRouterModelInfo
+			return {
+				selectedProvider: provider,
+				selectedModelId: nineRouterModelId || "deepseek/deepseek-v4-flash",
+				selectedModelInfo: nineRouterModelInfo || openAiModelInfoSaneDefaults,
 			}
 		case "hicap":
 			const hicapModelId =
@@ -606,9 +617,12 @@ export function getModeSpecificFields(apiConfiguration: ApiConfiguration | undef
 			mode === "plan" ? apiConfiguration.planModeNousResearchModelId : apiConfiguration.actModeNousResearchModelId,
 		vercelAiGatewayModelId:
 			mode === "plan" ? apiConfiguration.planModeVercelAiGatewayModelId : apiConfiguration.actModeVercelAiGatewayModelId,
+		nineRouterModelId:
+			mode === "plan" ? apiConfiguration.planModeNineRouterModelId : apiConfiguration.actModeNineRouterModelId,
 
 		// Model info objects
 		openAiModelInfo: mode === "plan" ? apiConfiguration.planModeOpenAiModelInfo : apiConfiguration.actModeOpenAiModelInfo,
+		nineRouterModelInfo: mode === "plan" ? apiConfiguration.planModeNineRouterModelInfo : apiConfiguration.actModeNineRouterModelInfo,
 		liteLlmModelInfo: mode === "plan" ? apiConfiguration.planModeLiteLlmModelInfo : apiConfiguration.actModeLiteLlmModelInfo,
 		openRouterModelInfo,
 		clineModelInfo,
@@ -812,6 +826,13 @@ export async function syncModeConfigurations(
 			updates.actModeNousResearchModelId = sourceFields.nousResearchModelId
 			break
 
+		case "9router":
+			updates.planModeNineRouterModelId = sourceFields.nineRouterModelId
+			updates.actModeNineRouterModelId = sourceFields.nineRouterModelId
+			updates.planModeNineRouterModelInfo = sourceFields.nineRouterModelInfo
+			updates.actModeNineRouterModelInfo = sourceFields.nineRouterModelInfo
+			break
+
 		case "aihubmix":
 			updates.planModeAihubmixModelId = sourceFields.aihubmixModelId
 			updates.planModeAihubmixModelInfo = sourceFields.aihubmixModelInfo
@@ -892,6 +913,13 @@ export const getProviderInfo = (
 					effectiveMode === "plan" ? apiConfiguration.planModeOpenAiModelId : apiConfiguration.actModeOpenAiModelId,
 				baseUrl: apiConfiguration.openAiBaseUrl,
 				helpText: "Add your OpenAI API key and endpoint",
+			}
+		case "9router":
+			return {
+				modelId:
+					effectiveMode === "plan" ? apiConfiguration.planModeNineRouterModelId : apiConfiguration.actModeNineRouterModelId,
+				baseUrl: apiConfiguration.nineRouterBaseUrl,
+				helpText: "Введите ваш API-ключ 9router и выберите базовый URL",
 			}
 		case "vscode-lm":
 			return {

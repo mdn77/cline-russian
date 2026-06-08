@@ -39,6 +39,7 @@ import { NousResearchProvider } from "./providers/NousresearchProvider"
 import { OcaProvider } from "./providers/OcaProvider"
 import { OllamaProvider } from "./providers/OllamaProvider"
 import { OpenAICompatibleProvider } from "./providers/OpenAICompatible"
+import { NineRouterProvider } from "./providers/NineRouterProvider"
 import { OpenAINativeProvider } from "./providers/OpenAINative"
 import { OpenAiCodexProvider } from "./providers/OpenAiCodexProvider"
 import { OpenRouterProvider } from "./providers/OpenRouterProvider"
@@ -282,16 +283,16 @@ const ApiOptions = ({
 						<TooltipTrigger>
 							<div className="flex items-center gap-2 mb-1">
 								<label htmlFor="api-provider">
-									<span style={{ fontWeight: 500 }}>API Provider</span>
+									<span style={{ fontWeight: 500 }}>Провайдер API</span>
 								</label>
 								<i className="codicon codicon-lock text-description text-sm" />
 							</div>
 						</TooltipTrigger>
-						<TooltipContent>Provider options are managed by your organization's remote configuration</TooltipContent>
+						<TooltipContent>Параметры провайдеров управляются удаленной конфигурацией вашей организации</TooltipContent>
 					</Tooltip>
 				) : (
 					<label htmlFor="api-provider">
-						<span style={{ fontWeight: 500 }}>API Provider</span>
+						<span style={{ fontWeight: 500 }}>Провайдер API</span>
 					</label>
 				)}
 				<ProviderDropdownWrapper ref={dropdownRef}>
@@ -307,7 +308,7 @@ const ApiOptions = ({
 							setIsDropdownVisible(true)
 						}}
 						onKeyDown={handleKeyDown}
-						placeholder="Search and select provider..."
+						placeholder="Поиск и выбор провайдера..."
 						role="combobox"
 						style={{
 							width: "100%",
@@ -418,6 +419,10 @@ const ApiOptions = ({
 
 			{apiConfiguration && selectedProvider === "openai" && (
 				<OpenAICompatibleProvider currentMode={currentMode} isPopup={isPopup} showModelOptions={showModelOptions} />
+			)}
+
+			{apiConfiguration && selectedProvider === "9router" && (
+				<NineRouterProvider currentMode={currentMode} isPopup={isPopup} showModelOptions={showModelOptions} />
 			)}
 
 			{apiConfiguration && selectedProvider === "vercel-ai-gateway" && (
