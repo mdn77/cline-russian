@@ -591,8 +591,6 @@ export interface ModelsApiOptions {
 	planModeAihubmixModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	planModeClineModelId?: string | undefined;
 	planModeClineModelInfo?: OpenRouterModelInfo | undefined;
-	planModeNineRouterModelId?: string | undefined;
-	planModeNineRouterModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	/** Act mode configurations */
 	actModeApiProvider?: ApiProvider | undefined;
 	actModeApiModelId?: string | undefined;
@@ -631,8 +629,6 @@ export interface ModelsApiOptions {
 	actModeAihubmixModelInfo?: OpenAiCompatibleModelInfo | undefined;
 	actModeClineModelId?: string | undefined;
 	actModeClineModelInfo?: OpenRouterModelInfo | undefined;
-	actModeNineRouterModelId?: string | undefined;
-	actModeNineRouterModelInfo?: OpenAiCompatibleModelInfo | undefined;
 }
 
 export interface ModelsApiOptions_OpenAiHeadersEntry {
@@ -869,6 +865,8 @@ export interface ModelsApiConfiguration {
 	nousResearchApiKey?: string | undefined;
 	azureIdentity?: boolean | undefined;
 	wandbApiKey?: string | undefined;
+	nineRouterApiKey?: string | undefined;
+	nineRouterBaseUrl?: string | undefined;
 	/** Plan mode configurations */
 	planModeApiProvider?: ApiProvider | undefined;
 	planModeApiModelId?: string | undefined;
@@ -8796,6 +8794,8 @@ function createBaseModelsApiConfiguration(): ModelsApiConfiguration {
 		nousResearchApiKey: undefined,
 		azureIdentity: undefined,
 		wandbApiKey: undefined,
+		nineRouterApiKey: undefined,
+		nineRouterBaseUrl: undefined,
 		planModeApiProvider: undefined,
 		planModeApiModelId: undefined,
 		planModeThinkingBudgetTokens: undefined,
@@ -8838,6 +8838,8 @@ function createBaseModelsApiConfiguration(): ModelsApiConfiguration {
 		geminiPlanModeThinkingLevel: undefined,
 		planModeClineModelId: undefined,
 		planModeClineModelInfo: undefined,
+		planModeNineRouterModelId: undefined,
+		planModeNineRouterModelInfo: undefined,
 		actModeApiProvider: undefined,
 		actModeApiModelId: undefined,
 		actModeThinkingBudgetTokens: undefined,
@@ -8880,6 +8882,8 @@ function createBaseModelsApiConfiguration(): ModelsApiConfiguration {
 		geminiActModeThinkingLevel: undefined,
 		actModeClineModelId: undefined,
 		actModeClineModelInfo: undefined,
+		actModeNineRouterModelId: undefined,
+		actModeNineRouterModelInfo: undefined,
 	};
 }
 
@@ -9154,6 +9158,12 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 		if (message.wandbApiKey !== undefined) {
 			writer.uint32(698).string(message.wandbApiKey);
 		}
+		if (message.nineRouterApiKey !== undefined) {
+			writer.uint32(706).string(message.nineRouterApiKey);
+		}
+		if (message.nineRouterBaseUrl !== undefined) {
+			writer.uint32(714).string(message.nineRouterBaseUrl);
+		}
 		if (message.planModeApiProvider !== undefined) {
 			writer.uint32(800).int32(message.planModeApiProvider);
 		}
@@ -9322,6 +9332,15 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 				writer.uint32(1130).fork(),
 			).join();
 		}
+		if (message.planModeNineRouterModelId !== undefined) {
+			writer.uint32(1138).string(message.planModeNineRouterModelId);
+		}
+		if (message.planModeNineRouterModelInfo !== undefined) {
+			OpenAiCompatibleModelInfo.encode(
+				message.planModeNineRouterModelInfo,
+				writer.uint32(1146).fork(),
+			).join();
+		}
 		if (message.actModeApiProvider !== undefined) {
 			writer.uint32(1600).int32(message.actModeApiProvider);
 		}
@@ -9488,6 +9507,15 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 			OpenRouterModelInfo.encode(
 				message.actModeClineModelInfo,
 				writer.uint32(1930).fork(),
+			).join();
+		}
+		if (message.actModeNineRouterModelId !== undefined) {
+			writer.uint32(1938).string(message.actModeNineRouterModelId);
+		}
+		if (message.actModeNineRouterModelInfo !== undefined) {
+			OpenAiCompatibleModelInfo.encode(
+				message.actModeNineRouterModelInfo,
+				writer.uint32(1946).fork(),
 			).join();
 		}
 		return writer;
@@ -10208,6 +10236,22 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 					message.wandbApiKey = reader.string();
 					continue;
 				}
+				case 88: {
+					if (tag !== 706) {
+						break;
+					}
+
+					message.nineRouterApiKey = reader.string();
+					continue;
+				}
+				case 89: {
+					if (tag !== 714) {
+						break;
+					}
+
+					message.nineRouterBaseUrl = reader.string();
+					continue;
+				}
 				case 100: {
 					if (tag !== 800) {
 						break;
@@ -10584,6 +10628,23 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 					);
 					continue;
 				}
+				case 142: {
+					if (tag !== 1138) {
+						break;
+					}
+
+					message.planModeNineRouterModelId = reader.string();
+					continue;
+				}
+				case 143: {
+					if (tag !== 1146) {
+						break;
+					}
+
+					message.planModeNineRouterModelInfo =
+						OpenAiCompatibleModelInfo.decode(reader, reader.uint32());
+					continue;
+				}
 				case 200: {
 					if (tag !== 1600) {
 						break;
@@ -10955,6 +11016,25 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 					}
 
 					message.actModeClineModelInfo = OpenRouterModelInfo.decode(
+						reader,
+						reader.uint32(),
+					);
+					continue;
+				}
+				case 242: {
+					if (tag !== 1938) {
+						break;
+					}
+
+					message.actModeNineRouterModelId = reader.string();
+					continue;
+				}
+				case 243: {
+					if (tag !== 1946) {
+						break;
+					}
+
+					message.actModeNineRouterModelInfo = OpenAiCompatibleModelInfo.decode(
 						reader,
 						reader.uint32(),
 					);
@@ -11423,6 +11503,16 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 				: isSet(object.wandb_api_key)
 					? globalThis.String(object.wandb_api_key)
 					: undefined,
+			nineRouterApiKey: isSet(object.nineRouterApiKey)
+				? globalThis.String(object.nineRouterApiKey)
+				: isSet(object.nine_router_api_key)
+					? globalThis.String(object.nine_router_api_key)
+					: undefined,
+			nineRouterBaseUrl: isSet(object.nineRouterBaseUrl)
+				? globalThis.String(object.nineRouterBaseUrl)
+				: isSet(object.nine_router_base_url)
+					? globalThis.String(object.nine_router_base_url)
+					: undefined,
 			planModeApiProvider: isSet(object.planModeApiProvider)
 				? apiProviderFromJSON(object.planModeApiProvider)
 				: isSet(object.plan_mode_api_provider)
@@ -11661,6 +11751,18 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 				: isSet(object.plan_mode_cline_model_info)
 					? OpenRouterModelInfo.fromJSON(object.plan_mode_cline_model_info)
 					: undefined,
+			planModeNineRouterModelId: isSet(object.planModeNineRouterModelId)
+				? globalThis.String(object.planModeNineRouterModelId)
+				: isSet(object.plan_mode_nine_router_model_id)
+					? globalThis.String(object.plan_mode_nine_router_model_id)
+					: undefined,
+			planModeNineRouterModelInfo: isSet(object.planModeNineRouterModelInfo)
+				? OpenAiCompatibleModelInfo.fromJSON(object.planModeNineRouterModelInfo)
+				: isSet(object.plan_mode_nine_router_model_info)
+					? OpenAiCompatibleModelInfo.fromJSON(
+							object.plan_mode_nine_router_model_info,
+						)
+					: undefined,
 			actModeApiProvider: isSet(object.actModeApiProvider)
 				? apiProviderFromJSON(object.actModeApiProvider)
 				: isSet(object.act_mode_api_provider)
@@ -11892,6 +11994,18 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 				? OpenRouterModelInfo.fromJSON(object.actModeClineModelInfo)
 				: isSet(object.act_mode_cline_model_info)
 					? OpenRouterModelInfo.fromJSON(object.act_mode_cline_model_info)
+					: undefined,
+			actModeNineRouterModelId: isSet(object.actModeNineRouterModelId)
+				? globalThis.String(object.actModeNineRouterModelId)
+				: isSet(object.act_mode_nine_router_model_id)
+					? globalThis.String(object.act_mode_nine_router_model_id)
+					: undefined,
+			actModeNineRouterModelInfo: isSet(object.actModeNineRouterModelInfo)
+				? OpenAiCompatibleModelInfo.fromJSON(object.actModeNineRouterModelInfo)
+				: isSet(object.act_mode_nine_router_model_info)
+					? OpenAiCompatibleModelInfo.fromJSON(
+							object.act_mode_nine_router_model_info,
+						)
 					: undefined,
 		};
 	},
@@ -12170,6 +12284,12 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 		if (message.wandbApiKey !== undefined) {
 			obj.wandbApiKey = message.wandbApiKey;
 		}
+		if (message.nineRouterApiKey !== undefined) {
+			obj.nineRouterApiKey = message.nineRouterApiKey;
+		}
+		if (message.nineRouterBaseUrl !== undefined) {
+			obj.nineRouterBaseUrl = message.nineRouterBaseUrl;
+		}
 		if (message.planModeApiProvider !== undefined) {
 			obj.planModeApiProvider = apiProviderToJSON(message.planModeApiProvider);
 		}
@@ -12330,6 +12450,14 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 				message.planModeClineModelInfo,
 			);
 		}
+		if (message.planModeNineRouterModelId !== undefined) {
+			obj.planModeNineRouterModelId = message.planModeNineRouterModelId;
+		}
+		if (message.planModeNineRouterModelInfo !== undefined) {
+			obj.planModeNineRouterModelInfo = OpenAiCompatibleModelInfo.toJSON(
+				message.planModeNineRouterModelInfo,
+			);
+		}
 		if (message.actModeApiProvider !== undefined) {
 			obj.actModeApiProvider = apiProviderToJSON(message.actModeApiProvider);
 		}
@@ -12488,6 +12616,14 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 				message.actModeClineModelInfo,
 			);
 		}
+		if (message.actModeNineRouterModelId !== undefined) {
+			obj.actModeNineRouterModelId = message.actModeNineRouterModelId;
+		}
+		if (message.actModeNineRouterModelInfo !== undefined) {
+			obj.actModeNineRouterModelInfo = OpenAiCompatibleModelInfo.toJSON(
+				message.actModeNineRouterModelInfo,
+			);
+		}
 		return obj;
 	},
 
@@ -12606,6 +12742,8 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 		message.nousResearchApiKey = object.nousResearchApiKey ?? undefined;
 		message.azureIdentity = object.azureIdentity ?? undefined;
 		message.wandbApiKey = object.wandbApiKey ?? undefined;
+		message.nineRouterApiKey = object.nineRouterApiKey ?? undefined;
+		message.nineRouterBaseUrl = object.nineRouterBaseUrl ?? undefined;
 		message.planModeApiProvider = object.planModeApiProvider ?? undefined;
 		message.planModeApiModelId = object.planModeApiModelId ?? undefined;
 		message.planModeThinkingBudgetTokens =
@@ -12730,6 +12868,15 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 			object.planModeClineModelInfo !== null
 				? OpenRouterModelInfo.fromPartial(object.planModeClineModelInfo)
 				: undefined;
+		message.planModeNineRouterModelId =
+			object.planModeNineRouterModelId ?? undefined;
+		message.planModeNineRouterModelInfo =
+			object.planModeNineRouterModelInfo !== undefined &&
+			object.planModeNineRouterModelInfo !== null
+				? OpenAiCompatibleModelInfo.fromPartial(
+						object.planModeNineRouterModelInfo,
+					)
+				: undefined;
 		message.actModeApiProvider = object.actModeApiProvider ?? undefined;
 		message.actModeApiModelId = object.actModeApiModelId ?? undefined;
 		message.actModeThinkingBudgetTokens =
@@ -12846,6 +12993,15 @@ export const ModelsApiConfiguration: MessageFns<ModelsApiConfiguration> = {
 			object.actModeClineModelInfo !== undefined &&
 			object.actModeClineModelInfo !== null
 				? OpenRouterModelInfo.fromPartial(object.actModeClineModelInfo)
+				: undefined;
+		message.actModeNineRouterModelId =
+			object.actModeNineRouterModelId ?? undefined;
+		message.actModeNineRouterModelInfo =
+			object.actModeNineRouterModelInfo !== undefined &&
+			object.actModeNineRouterModelInfo !== null
+				? OpenAiCompatibleModelInfo.fromPartial(
+						object.actModeNineRouterModelInfo,
+					)
 				: undefined;
 		return message;
 	},

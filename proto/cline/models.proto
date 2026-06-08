@@ -601,6 +601,8 @@ message ModelsApiConfiguration {
   optional string nous_research_api_key = 85;
   optional bool azure_identity = 86;
   optional string wandb_api_key = 87;
+  optional string nine_router_api_key = 88;
+  optional string nine_router_base_url = 89;
 
   // Plan mode configurations
   optional ApiProvider plan_mode_api_provider = 100;
@@ -645,6 +647,8 @@ message ModelsApiConfiguration {
   optional string gemini_plan_mode_thinking_level = 139;
   optional string plan_mode_cline_model_id = 140;
   optional OpenRouterModelInfo plan_mode_cline_model_info = 141;
+  optional string plan_mode_nine_router_model_id = 142;
+  optional OpenAiCompatibleModelInfo plan_mode_nine_router_model_info = 143;
 
   // Act mode configurations
   optional ApiProvider act_mode_api_provider = 200;
@@ -689,4 +693,6 @@ message ModelsApiConfiguration {
   optional string gemini_act_mode_thinking_level = 239;
   optional string act_mode_cline_model_id = 240;
   optional OpenRouterModelInfo act_mode_cline_model_info = 241;
+  optional string act_mode_nine_router_model_id = 242;
+  optional OpenAiCompatibleModelInfo act_mode_nine_router_model_info = 243;
 }
